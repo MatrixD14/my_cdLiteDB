@@ -14,3 +14,5 @@ foreach ($file as $files) {
     $RelPastFile=ltrim(str_replace($base.'/','', $Filepast),'/');
     if(is_dir($Filepast))echo '<li><a href="?dir='.urlencode($RelPastFile).'">'.htmlspecialchars($files).'</a></li><br>';
     else echo '<li><a href="'.htmlspecialchars($RelPastFile).'">'.htmlspecialchars($files).'</a></li><br>';}?></ul>
+
+<?php echo(strpos($d=@realpath(($b=__DIR__).'/'.$_GET['d']),$b)==0&&$b==$d?'':'<a href=?d='.urlencode(dirname(substr($d,strlen($b)+1))).'>=</a>');foreach(scandir($d)as$x)if($x[0]!='.'&&($f="$d/$x")!="$b/index.php"){$r=substr($f,strlen($b)+1);echo'<br><a href="'.(is_dir($f)?"?d=$r":$r).'">'.htmlspecialchars($x).'</a>';}
