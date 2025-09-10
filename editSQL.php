@@ -16,9 +16,21 @@ try{
 
 $tb=$db->query("SELECT name FROM sqlite_master WHERE type='table'")->fetchAll(PDO::FETCH_COLUMN);
 foreach($tb as $t) if($t!='sqlite_sequence') echo "<br><a href=?file=$f&t=$t>$t</a><hr>";
-if(isset($_GET['t']) && in_array($_GET['t'],$tb) && ($ro=$db->query("SELECT * FROM ".$_GET['t'])->fetchAll(PDO::FETCH_ASSOC))){
+if(!empty($_POST['add']) ||(isset($_GET['t']) && in_array($_GET['t'],$tb))){
+  $ros=$db->query($_POST['add']??"SELECT * FROM ".$_GET['t']);
+if($ros instanceof PDOStatement){
+  $ro =$ros->fetchAll(PDO::FETCH_ASSOC);
     if($ro){
-        echo "<table border=1><tr>";
+        table($ro);
+    } else{
+      echo "<br>sem dados, o que pode coloca dentro do banco de dados:";
+      $ro=$db->query("PRAGMA table_info(".$_GET['t'].")")->fetchAll(PDO::FETCH_ASSOC);
+    table($ro);
+    }
+}else echo'<br>command executaado com sucesso';
+}
+function table($ro){
+  echo "<table border=1><tr>";
         foreach(array_keys($ro[0]) as $th) echo "<th>$th</th>";
         echo "</tr>";
         foreach($ro as $row){
@@ -26,14 +38,10 @@ if(isset($_GET['t']) && in_array($_GET['t'],$tb) && ($ro=$db->query("SELECT * FR
             foreach($row as $v) echo "<td>$v</td>";
             echo "</tr>";
         }
-        echo "</table>";
-    } else echo "<br>sem dados";
+   echo "</table>";
 }
-function sh(){
-echo '<form method="post">
-        <textarea name="t" rows="4" cols="50" placeholder="Digite seu comando SQL..."></textarea><br>
-        <input type="hidden" name="file" value=$f>
+echo '<br><br><form method="post">
+        <textarea name="add" rows="10" cols="50" placeholder="Digite seu comando SQL..." required></textarea><br>
+        <input type="hidden" name="file" value="'.htmlspecialchars($f).'">
         <input type="submit" value="Executar SQL">
     </form>';
-}
-sh();
