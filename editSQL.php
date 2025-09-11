@@ -12,25 +12,27 @@ try{
 }catch(Exception $e){r();}
 $tb=$db->query("SELECT name FROM sqlite_master WHERE type='table'")->fetchAll(PDO::FETCH_COLUMN);
 foreach($tb as $t)if($t!='sqlite_sequence')echo"<br><a href=?file=$f&t=$t>$t</a><hr>";
-if(!empty($_POST['CMD'])){
-  $_SESSION['cmd']=($sql=$_POST['CMD']);
-  if(!empty($_GET['run'])&&!empty($_SESSION['cmd'])) $sql= $_SESSION['cmd'];
-  try{
-  if(($ros=$db->query($sql)) instanceof PDOStatement)$_SESSION['lab']=$t??'';
-else if(preg_match('/^(INSERT|UPDATE|DELETE)\s+(?:INTO|FROM)?\s*["`]?(?<tbl>[a-zA-Z0-9_]+)["`]?/i',$sql,$m)) $_SESSION['lab']=$m['tbl'];
-  }catch(Exception $e){echo'erro: '.$e->getMessage();}
-  header("Location: ?file=$f&run=1");
-  exit;
-}
 if(($t=$_GET['t']??$_SESSION['lab']??'') && in_array($t,$tb)){
   try{
   echo($ro=$db->query("SELECT * FROM $t")->fetchAll(PDO::FETCH_ASSOC))?table($ro,$t):table($db->query("PRAGMA table_info($t)")->fetchAll(PDO::FETCH_ASSOC),$t);}catch(Exception $e){echo'erro: '.$e->getMessage();}
 }
+if(!empty($_POST['CMD'])){
+  $_SESSION['cmd']=($sql=$_POST['CMD']);
+  if(!empty($_GET['run'])&&!empty($_SESSION['cmd'])) $sql= $_SESSION['cmd'];
+  $erro ='';
+  try{
+  if(($ros=$db->query($sql)) instanceof PDOStatement&&preg_match('/^(INSERT|UPDATE|DELETE)\s+(?:INTO|FROM)?\s*["`]?(?<tbl>[a-zA-Z0-9_]+)["`]?/i',$sql,$m)) $_SESSION['lab']=$m['tbl'];
+  if(!isset($_SESSION['history'])) $_SESSION['history']=[];$_SESSION['history'][]=$sql;
+  }catch(Exception $e){ $erro=$e->getMessage();}
+  if($erro)echo"<br>$erro";
+  else{header("Location: ?file=$f&run=1");
+  exit;}
+}
 function table($ro,$n=''){
   if(!$ro)return;
-  echo "<br><table border=2>$n<tr><th>".implode("</th><th>",($h=array_keys($ro[0])))."</th></tr>";
+  echo "<br>$n<div style='max-height:400px; overflow:auto;'><table border=2><tr><th>".implode("</th><th>",array_keys($ro[0]))."</th></tr>";
   foreach($ro as $v) echo"<tr><td>".implode("</td><td>",$v)."</td></tr>";
-   echo"</table>";
+   echo"</table></div>";
 }
 if(isset($_GET['LIMP']))$_SESSION['cmd']='';
 ob_end_flush();
@@ -38,7 +40,7 @@ ob_end_flush();
 <br><br><form method="post" onsubmit="return check()">
         <textarea name="CMD"id="CMD"rows="10" cols="50" placeholder="Digite seu command SQL..." required><?=htmlspecialchars($_SESSION['cmd']??'')?></textarea><br>
         <input type="hidden"name="file"value="<?=htmlspecialchars($f)?>">
-        <input type="submit"> <a href="?file=<?=$f?>&LIMP=1"?>">DELETE</a>
+        <input type="submit"> <a href="?file=<?=$f?>&LIMP=1"?> LIMPA</a>
     </form>
     <script>
       function check(){
@@ -46,3 +48,8 @@ ob_end_flush();
       return list.some(p=>cmd.includes(p))? confirm('esse cmd \n'+cmd+'\n e perigoso, tem certesa'):true;
       }
     </script>
+<textarea readonly rows="10" cols="50">
+<?php
+if(!empty($_SESSION['history']))
+  foreach(array_slice(array_reverse($_SESSION['history']),-1000) as $hi)echo"$hi\n\n";
+?></textarea>
