@@ -13,11 +13,13 @@ try{
 $tb=$db->query("SELECT name FROM sqlite_master WHERE type='table'")->fetchAll(PDO::FETCH_COLUMN);
 foreach($tb as $t)if($t!='sqlite_sequence')echo"<br><a href=?file=$f&t=$t>$t</a><hr>";
 if(!empty($_POST['CMD'])){
+  $_SESSION['cmd']=($sql=$_POST['CMD']);
+  if(!empty($_GET['run'])&&!empty($_SESSION['cmd'])) $sql= $_SESSION['cmd'];
   try{
-  if(($ros=$db->query(($sql=$_POST['CMD']))) instanceof PDOStatement)$_SESSION['lab']=$t??'';
+  if(($ros=$db->query($sql)) instanceof PDOStatement)$_SESSION['lab']=$t??'';
 else if(preg_match('/^(INSERT|UPDATE|DELETE)\s+(?:INTO|FROM)?\s*["`]?(?<tbl>[a-zA-Z0-9_]+)["`]?/i',$sql,$m)) $_SESSION['lab']=$m['tbl'];
   }catch(Exception $e){echo'erro: '.$e->getMessage();}
-  header("Location: ?file=$f");
+  header("Location: ?file=$f&run=1");
   exit;
 }
 if(($t=$_GET['t']??$_SESSION['lab']??'') && in_array($t,$tb)){
@@ -30,12 +32,13 @@ function table($ro,$n=''){
   foreach($ro as $v) echo"<tr><td>".implode("</td><td>",$v)."</td></tr>";
    echo"</table>";
 }
+if(isset($_GET['LIMP']))$_SESSION['cmd']='';
 ob_end_flush();
 ?>
 <br><br><form method="post" onsubmit="return check()">
-        <textarea name="CMD"id="CMD"rows="10" cols="50" placeholder="Digite seu command SQL..." required></textarea><br>
+        <textarea name="CMD"id="CMD"rows="10" cols="50" placeholder="Digite seu command SQL..." required><?=htmlspecialchars($_SESSION['cmd']??'')?></textarea><br>
         <input type="hidden"name="file"value="<?=htmlspecialchars($f)?>">
-        <input type="submit">
+        <input type="submit"> <a href="?file=<?=$f?>&LIMP=1"?>">DELETE</a>
     </form>
     <script>
       function check(){
