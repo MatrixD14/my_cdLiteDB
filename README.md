@@ -1,5 +1,13 @@
-**Português:**
-Este repositório contém alguns scripts com o objetivo de simular um ambiente semelhante ao XAMPP, permitindo navegação em pastas e edição de banco de dados de forma simplificada, utilizando arquivos **.db** (ou, de forma mais apropriada, arquivos SQLite).
+# my_cdDBLite
 
-**Inglês:**
-This repository contains scripts designed to simulate a lightweight XAMPP-like environment. It allows folder navigation and simplified database management using **.db** files (or, more precisely, SQLite files).
+**Português:**  
+Este repositório contém scripts em **PHP** com o objetivo de simular um ambiente semelhante ao **XAMPP**, permitindo **navegação entre pastas** e **edição de bancos de dados SQLite (.db)** de forma simples e direta.  
+
+O projeto foi pensado para **programadores que utilizam smartphones**, com a proposta de ser **minimalista e compacto**, evitando consumo excessivo de memória e recursos do dispositivo.  
+
+---
+
+**English:**  
+This repository contains **PHP scripts** designed to simulate an environment similar to **XAMPP**, allowing **folder navigation** and **SQLite (.db) database editing** in a simple and straightforward way.  
+
+The project is intended for **developers working on smartphones**, with the goal of being **minimalistic and lightweight**, avoiding excessive memory and resource usage on the device.  
