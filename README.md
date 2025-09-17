@@ -1,13 +1,65 @@
-# my_cdDBLite
+# my\_cdLiteDB
 
-**Português:**  
-Este repositório contém scripts em **PHP** com o objetivo de simular um ambiente semelhante ao **XAMPP**, permitindo **navegação entre pastas** e **edição de bancos de dados SQLite (.db)** de forma simples e direta.  
-
-O projeto foi pensado para **programadores que utilizam smartphones**, com a proposta de ser **minimalista e compacto**, evitando consumo excessivo de memória e recursos do dispositivo.  
+**Português | English**
 
 ---
 
-**English:**  
-This repository contains **PHP scripts** designed to simulate an environment similar to **XAMPP**, allowing **folder navigation** and **SQLite (.db) database editing** in a simple and straightforward way.  
+## 📌 Descrição / Description
 
-The project is intended for **developers working on smartphones**, with the goal of being **minimalistic and lightweight**, avoiding excessive memory and resource usage on the device.  
+**Português:**
+O **my\_cdDBLite** é um conjunto de scripts em **PHP** projetado para simular um ambiente semelhante ao **XAMPP**, oferecendo:
+
+* 🔎 **Navegação entre pastas** diretamente no navegador.
+* 🗄️ **Edição de bancos de dados SQLite (.db)** de forma simples e prática.
+
+O projeto foi desenvolvido pensando em **programadores que utilizam smartphones**, com foco em ser **minimalista, compacto e leve**, evitando consumo excessivo de memória e recursos do dispositivo.
+
+---
+
+**English:**
+**my\_cdDBLite** is a set of **PHP scripts** designed to simulate an environment similar to **XAMPP**, providing:
+
+* 🔎 **Folder navigation** directly in the browser.
+* 🗄️ **SQLite (.db) database editing** in a simple and practical way.
+
+The project was created with **mobile developers in mind**, aiming to be **minimalist, lightweight, and compact**, avoiding unnecessary memory and resource usage on the device.
+
+---
+
+## ⚙️ Como usar / How to use
+
+**Português:**
+
+1. Coloque os arquivos do **my\_cdDBLite** na **pasta raiz** do seu projeto (a mesma em que será iniciado o servidor PHP).
+2. Inicie o servidor local com:
+
+```bash
+php -S localhost:8080
+```
+
+3. Acesse pelo navegador:
+
+```
+http://localhost:8080
+```
+
+4. Agora você pode navegar entre pastas e editar bancos SQLite diretamente no navegador.
+
+---
+
+**English:**
+
+1. Place the **my\_cdDBLite** files in the **root folder** of your project (the same where the PHP server will be started).
+2. Start the local server with:
+
+```bash
+php -S localhost:8080
+```
+
+3. Open in your browser:
+
+```
+http://localhost:8080
+```
+
+4. You can now browse folders and edit SQLite databases directly from your browser.
