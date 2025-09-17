@@ -1,6 +1,4 @@
-# my\_cdLiteDB
-
-**Português | English**
+# my\_cdDBLite
 
 ---
 
@@ -12,7 +10,7 @@ O **my\_cdDBLite** é um conjunto de scripts em **PHP** projetado para simular u
 * 🔎 **Navegação entre pastas** diretamente no navegador.
 * 🗄️ **Edição de bancos de dados SQLite (.db)** de forma simples e prática.
 
-O projeto foi desenvolvido pensando em **programadores que utilizam smartphones**, com foco em ser **minimalista, compacto e leve**, evitando consumo excessivo de memória e recursos do dispositivo.
+O projeto foi desenvolvido pensando em **programadores que utilizam smartphones ou usam a `pkg php`**, com foco em ser **minimalista, compacto e leve**, evitando consumo excessivo de memória e recursos do dispositivo.
 
 ---
 
@@ -22,7 +20,7 @@ O projeto foi desenvolvido pensando em **programadores que utilizam smartphones*
 * 🔎 **Folder navigation** directly in the browser.
 * 🗄️ **SQLite (.db) database editing** in a simple and practical way.
 
-The project was created with **mobile developers in mind**, aiming to be **minimalist, lightweight, and compact**, avoiding unnecessary memory and resource usage on the device.
+The project was created for **developers who use smartphones or the `pkg php` package**, aiming to be **minimalist, lightweight, and compact**, avoiding unnecessary memory and resource usage on the device.
 
 ---
 
